@@ -41,6 +41,10 @@ export const CreateUserPage: React.FC = () => {
       newErrors.fullName = 'Họ và tên bắt buộc nhập';
     }
 
+    if (!formData.username?.trim()) {
+      newErrors.username = 'Tên đăng nhập bắt buộc nhập';
+    }
+
     if (!formData.email.trim()) {
       newErrors.email = 'Email bắt buộc nhập';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
@@ -152,6 +156,30 @@ export const CreateUserPage: React.FC = () => {
                   <span className="flex items-center gap-1 text-[10px] text-red-400 font-semibold mt-0.5">
                     <AlertCircle size={10} />
                     {errors.fullName}
+                  </span>
+                )}
+              </div>
+
+              {/* Username input */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                  Tên đăng nhập <span className="text-red-500">*</span>
+                </label>
+                <input 
+                  type="text" 
+                  name="username"
+                  placeholder="Ví dụ: sarahconnor"
+                  value={formData.username}
+                  onChange={handleChange}
+                  disabled={createMutation.isPending}
+                  className={`w-full bg-[#0B111E] border rounded-xl px-4 py-2.5 text-xs text-slate-200 placeholder-slate-650 focus:outline-none focus:ring-2 focus:ring-violet-500/10 transition-all ${
+                    errors.username ? 'border-red-500/50 focus:border-red-500' : 'border-slate-800 hover:border-slate-750 focus:border-violet-500/50'
+                  }`}
+                />
+                {errors.username && (
+                  <span className="flex items-center gap-1 text-[10px] text-red-400 font-semibold mt-0.5">
+                    <AlertCircle size={10} />
+                    {errors.username}
                   </span>
                 )}
               </div>
