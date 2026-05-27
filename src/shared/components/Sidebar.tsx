@@ -33,7 +33,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobileMenuOpen, setIsMobileM
           <nav className="flex flex-col gap-1.5">
             <NavLink 
               to="/workspace"
-              className={({ isActive }) => 
+              className={({ isActive }: { isActive: boolean }) => 
                 `flex items-center gap-3 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all ${
                   isActive 
                     ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-lg shadow-violet-600/20' 
@@ -46,7 +46,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobileMenuOpen, setIsMobileM
             </NavLink>
             <NavLink 
               to="/monitoring"
-              className={({ isActive }) => 
+              className={({ isActive }: { isActive: boolean }) => 
                 `flex items-center gap-3 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all ${
                   isActive 
                     ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-lg shadow-violet-600/20' 
@@ -59,7 +59,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobileMenuOpen, setIsMobileM
             </NavLink>
             <NavLink 
               to="/results"
-              className={({ isActive }) => 
+              className={({ isActive }: { isActive: boolean }) => 
                 `flex items-center gap-3 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all ${
                   isActive 
                     ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-lg shadow-violet-600/20' 
@@ -72,7 +72,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobileMenuOpen, setIsMobileM
             </NavLink>
             <NavLink 
               to="/users"
-              className={({ isActive }) => 
+              className={({ isActive }: { isActive: boolean }) => 
                 `flex items-center gap-3 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all ${
                   isActive 
                     ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-lg shadow-violet-600/20' 
@@ -96,7 +96,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobileMenuOpen, setIsMobileM
           <nav className="flex flex-col gap-1.5">
             <NavLink 
               to="/settings"
-              className={({ isActive }) => 
+              className={({ isActive }: { isActive: boolean }) => 
                 `flex items-center gap-3 px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
                   isActive 
                     ? 'text-white' 
@@ -109,7 +109,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobileMenuOpen, setIsMobileM
             </NavLink>
             <NavLink 
               to="/support"
-              className={({ isActive }) => 
+              className={({ isActive }: { isActive: boolean }) => 
                 `flex items-center gap-3 px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
                   isActive 
                     ? 'text-white' 
