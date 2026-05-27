@@ -9,7 +9,7 @@ export default defineConfig({
       name: 'user_mfe',
       filename: 'remoteEntry.js',
       exposes: {
-        './UserManagement': './src/App.tsx',
+        './UserManagement': './src/app/App.tsx',
       },
       shared: ['react', 'react-dom', '@tanstack/react-query'],
     }),
