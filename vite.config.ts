@@ -9,9 +9,9 @@ export default defineConfig({
       name: 'user_mfe',
       filename: 'remoteEntry.js',
       exposes: {
-        './App': './src/app/App.tsx',
+        './UserManagement': './src/App.tsx',
       },
-      shared: ['react', 'react-dom', '@tanstack/react-query', 'react-router-dom'],
+      shared: ['react', 'react-dom', '@tanstack/react-query'],
     }),
   ],
   build: {
@@ -21,10 +21,9 @@ export default defineConfig({
     cssCodeSplit: false,
   },
   server: {
-    port: 3003,
-    host: true,
+    port: 5173,
   },
   preview: {
-    port: 3003,
+    port: 5173,
   }
 });
