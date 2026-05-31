@@ -129,6 +129,24 @@ export const UserListPage: React.FC = () => {
 
   const displayUser = (normalizedProfile as ViewUser | undefined) || fallbackUser;
 
+  useEffect(() => {
+    if (!displayUser) return;
+
+    const stored = readProfileDraft();
+    setDraft((current) => ({
+      avatarUrl: current.avatarUrl || stored.avatarUrl || displayUser.avatarUrl || '',
+      username: displayUser.username || '',
+      fullName: displayUser.fullName || '',
+      phone: displayUser.phone || '',
+    }));
+  }, [
+    displayUser?.id,
+    displayUser?.username,
+    displayUser?.fullName,
+    displayUser?.phone,
+    displayUser?.avatarUrl,
+  ]);
+
   const mergedUser = useMemo(() => {
     if (!displayUser) return null;
 
