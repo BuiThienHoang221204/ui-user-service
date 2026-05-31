@@ -33,6 +33,19 @@ export const useUserDetail = (id: string | number) => {
   });
 };
 
+export const useUserByEmail = (email: string) => {
+  const normalizedEmail = email.trim().toLowerCase();
+
+  return useQuery({
+    queryKey: ['user', 'email', normalizedEmail],
+    queryFn: async () => {
+      const res = await userService.getUserByEmail(normalizedEmail);
+      return res.data;
+    },
+    enabled: !!normalizedEmail,
+  });
+};
+
 export const useCreateUser = (onSuccessCallback?: () => void) => {
   const queryClient = useQueryClient();
 

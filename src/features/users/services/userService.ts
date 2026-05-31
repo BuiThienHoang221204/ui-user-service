@@ -2,6 +2,14 @@ import { axiosClient } from '../../../shared/api/axiosClient';
 import { User, UserCreateInput, UserUpdateInput, UserQueryFilters } from '../types';
 
 export const userService = {
+  normalizeEmail: (value: string) => value.trim().toLowerCase(),
+
+  matchesEmail: (user: any, email: string) => {
+    if (!user || !email) return false;
+
+    return String(user.email || '').trim().toLowerCase() === email;
+  },
+
   mapUserToFrontend: (user: any): User => {
     if (!user) return user;
     
@@ -43,9 +51,37 @@ export const userService = {
 
   getUsers: async (params?: UserQueryFilters) => {
     const res = await axiosClient.get<any[]>('/users', { params });
+    const users = res.data.map(userService.mapUserToFrontend);
+
     return {
       ...res,
-      data: res.data.map(userService.mapUserToFrontend),
+      data: params?.email
+        ? users.filter((user) => userService.matchesEmail(user, userService.normalizeEmail(params.email || '')))
+        : users,
+    };
+  },
+
+  getUserByEmail: async (email: string) => {
+    const normalizedEmail = userService.normalizeEmail(email);
+    if (!normalizedEmail) {
+      return {
+        data: null,
+      };
+    }
+
+    const res = await axiosClient.get<any[]>('/users', { params: { email: normalizedEmail } });
+    const mappedUsers = res.data.map(userService.mapUserToFrontend);
+    const exactMatch = mappedUsers.find((user) => userService.matchesEmail(user, normalizedEmail)) || null;
+
+    if (import.meta.env.DEV) {
+      console.info(
+        `[userService] email lookup ${normalizedEmail} -> ${exactMatch ? 'match' : 'empty'} (${mappedUsers.length} row(s) returned)`
+      );
+    }
+
+    return {
+      ...res,
+      data: exactMatch,
     };
   },
   

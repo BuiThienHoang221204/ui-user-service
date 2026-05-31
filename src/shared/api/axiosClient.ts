@@ -1,14 +1,39 @@
 import axios from 'axios';
 
-// API Server Base URL
-// Khi chạy production trên Vercel, chúng ta dùng rewrite /api-user để tránh lỗi Mixed Content (HTTPS -> HTTP)
-const baseURL = import.meta.env.MODE === 'production' 
-  ? '/api-user' 
-  : (import.meta.env.VITE_API_BASE_URL || 'http://13.239.122.251:3001');
+const stripTrailingSlash = (value: string) => value.replace(/\/$/, '');
+
+const getAccessToken = () => {
+  if (typeof window === 'undefined') return null;
+
+  return (
+    window.localStorage.getItem('auth_access_token') ||
+    window.localStorage.getItem('authToken')
+  );
+};
+
+const baseURL = stripTrailingSlash(
+  import.meta.env.VITE_API_BASE_URL || '/api-user'
+);
 
 export const axiosClient = axios.create({
   baseURL,
   headers: {
     'Content-Type': 'application/json',
   },
+});
+
+axiosClient.interceptors.request.use((config) => {
+  const accessToken = getAccessToken();
+  const method = (config.method || 'get').toUpperCase();
+  const requestUrl = `${config.baseURL || baseURL}${config.url || ''}`;
+
+  if (import.meta.env.DEV) {
+    console.info(`[axiosClient] ${method} ${requestUrl}`);
+  }
+
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
+
+  return config;
 });

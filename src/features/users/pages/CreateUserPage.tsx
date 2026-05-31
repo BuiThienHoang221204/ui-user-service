@@ -52,9 +52,9 @@ export const CreateUserPage: React.FC = () => {
     }
 
     if (!formData.phone.trim()) {
-      newErrors.phone = 'Số điện thoại bắt buộc nhập';
-    } else if (!/^\d{8,11}$/.test(formData.phone.replace(/[\s-]/g, ''))) {
-      newErrors.phone = 'Số điện thoại phải từ 8 đến 11 chữ số';
+      newErrors.phone = 'Nền tảng bắt buộc nhập';
+    } else if (formData.phone.trim().length < 2 || formData.phone.trim().length > 50) {
+      newErrors.phone = 'Nền tảng phải từ 2 đến 50 ký tự';
     }
 
     setErrors(newErrors);
@@ -213,12 +213,12 @@ export const CreateUserPage: React.FC = () => {
                 {/* Phone input */}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                    Số điện thoại <span className="text-red-500">*</span>
-                  </label>
+                      Nền tảng <span className="text-red-500">*</span>
+                    </label>
                   <input 
                     type="text" 
                     name="phone"
-                    placeholder="0901234567"
+                      placeholder="Ví dụ: google-oauth"
                     value={formData.phone}
                     onChange={handleChange}
                     disabled={createMutation.isPending}

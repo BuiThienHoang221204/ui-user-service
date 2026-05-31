@@ -63,7 +63,7 @@ src/
    ```bash
    cp .env.example .env
    ```
-   *Mặc định `VITE_API_BASE_URL` trỏ tới `http://localhost:3000/api` (API Gateway).*
+  *Mặc định `VITE_API_BASE_URL` trỏ tới `/api-user` để đi qua proxy cùng-origin và tránh preflight CORS với bearer token.* 
 
 3. Khởi chạy máy chủ phát triển độc lập (Standalone):
    ```bash
@@ -149,7 +149,7 @@ export const ShellRouter = () => {
 
 ## ⚡ API Endpoint Danh mục
 
-Khi thực hiện các thao tác CRUD, ứng dụng sẽ gửi yêu cầu trực tiếp qua API Gateway:
+Khi thực hiện các thao tác CRUD, ứng dụng sẽ gửi yêu cầu trực tiếp qua API Gateway và tự gắn header `Authorization: Bearer <token>` từ `auth_access_token` trong cookie/localStorage:
 - **Lấy danh sách người dùng**: `GET /users` (hoặc lọc theo `GET /users?email=...`)
 - **Xem thông tin chi tiết**: `GET /users/:id`
 - **Tạo người dùng mới**: `POST /users`
