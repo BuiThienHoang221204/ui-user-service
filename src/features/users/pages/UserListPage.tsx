@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import axios from 'axios';
-import { Activity, BadgeCheck, Calendar, Clock, Edit2, Mail, Phone, RefreshCw, ShieldAlert, ShieldCheck, UserCircle2, Save, ImagePlus } from 'lucide-react';
+import { Activity, BadgeCheck, Calendar, Clock, Edit2, Mail, Phone, RefreshCw, ShieldAlert, UserCircle2, Save, ImagePlus } from 'lucide-react';
 import { useUserByEmail } from '../hooks/useUsers';
 import { useAuthSession } from '../../../shared/hooks/useAuthSession';
 
@@ -63,7 +63,7 @@ const buildS3PublicUrl = (bucket: string, key: string) => {
 };
 
 export const UserListPage: React.FC = () => {
-  const { accessToken, user: sessionUser, isReady } = useAuthSession();
+  const { user: sessionUser, isReady } = useAuthSession();
   const currentUserEmail = (sessionUser?.email || '').trim().toLowerCase();
   const { data: profile, isLoading, error, refetch } = useUserByEmail(currentUserEmail);
   const avatarInputRef = useRef<HTMLInputElement | null>(null);
